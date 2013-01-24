@@ -40,7 +40,7 @@ hue.prototype.config = function(config) {
 
 function findStations() {
 
-  this._app.log.info('Hue has no configuration')
+  this._app.log.info('Hue: No configuration')
   var self = this;
 
   // If we do not want to auto register
@@ -56,7 +56,7 @@ function registerStation(station) {
 
   if (this._opts.stations.indexOf(station)>-1) {
     // We already have this station registered.
-    this._app.log.info('Already configured %s, aborting',station);
+    this._app.log.info('Hue: Already configured Hue %s, aborting',station);
     return;
   }
 
@@ -72,6 +72,9 @@ function registerStation(station) {
     attempts:0
   };
 
+
+  self._app.log.info('Hue: Please press link button on station %s',station);
+
   client.register(registerOpts,function(err) {
 
     if (err) {
@@ -80,10 +83,9 @@ function registerStation(station) {
       return;
     }
 
-    self._app.log.info('Having Hue configuration');
+    self._app.log.info('Hue: station %s registered, saving',station);
     self._opts.stations.push(station);
 
-    console.log(self._opts)
     self.save();
 
     loadStations.call(self);
