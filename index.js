@@ -12,11 +12,9 @@ function hue(opts,app) {
 
   var self = this;
 
-  this.log = app.log;
-
   this._app = app;
   this._opts = opts;
-  this._opts = opts.stations || [];
+  this._opts.stations = opts.stations || [];
 
   // Todo: use node ID
   this.appName = 'Hue Ninja Module';
