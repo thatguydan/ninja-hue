@@ -2,7 +2,8 @@ var util = require('util')
   , stream = require('stream')
   , os = require('os')
   , helpers = require('./lib/helpers')
-  , Hue = require('hue.js');
+  , Hue = require('hue.js')
+  , Light = require('./lib/Light');
 
 util.inherits(hue,stream);
 module.exports = hue;
@@ -18,12 +19,17 @@ function hue(opts,app) {
     stations:[],
     autoRegister:true
   };
-  this.appName = 'Dan1';
+
+  // Todo: use node ID
+  this.appName = 'Hue Ninja Module';
 
   app.on('client::up', function() {
 
-    var next = (self._opts.stations.length) ? load : first;
-    next.call(self);
+    if (self._opts.stations.length>0) {
+      loadStations.call(self);
+    } else {
+      findStations.call(self);
+    }
   });
 };
 
@@ -32,15 +38,10 @@ hue.prototype.config = function(config) {
   // this.emit('config')
 };
 
-function first() {
-
-
-  var self = this;
+function findStations() {
 
   this._app.log.info('Hue has no configuration')
-
-  // Emit unconfigured
-
+  var self = this;
 
   // If we do not want to auto register
   if (!this._opts.autoRegister) return;
@@ -52,7 +53,6 @@ function first() {
 };
 
 function registerStation(station) {
-
 
   if (this._opts.stations.indexOf(station)>-1) {
     // We already have this station registered.
@@ -85,9 +85,36 @@ function registerStation(station) {
 
     console.log(self._opts)
     self.save();
+
+    loadStations.call(self);
   });
 };
 
-function load() {
+function loadStations() {
 
+  this._opts.stations.forEach(fetchLights.bind(this));
+};
+
+function fetchLights(station,stationIndex) {
+
+  var self = this;
+
+  var client = Hue.createClient({
+    stationIp:station,
+    appName:this.appName
+  });
+
+  client.lights(function(err,lights) {
+
+    if (err) {
+      // TODO check we are registered
+      self.app.log.error(err);
+      return;
+    }
+
+    Object.keys(lights).forEach(function(lightIndex) {
+
+      self.emit('register',new Light(client,stationIndex,lightIndex))
+    });
+  });
 };
