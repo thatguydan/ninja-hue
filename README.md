@@ -3,7 +3,7 @@ Ninja Hue Module
 
 ## Installation
 ```
-cd /opt/ninja/ninja_module
+cd PATH_TO_NINJA_CLIENT/ninja_modules
 git clone https://github.com/thatguydan/ninja-hue.git
 cd ninja-hue
 npm install
