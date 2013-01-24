@@ -15,10 +15,7 @@ function hue(opts,app) {
   this.log = app.log;
 
   this._app = app;
-  this._opts = this.opts = opts = {
-    stations:[],
-    autoRegister:true
-  };
+  this._opts = opts;
 
   // Todo: use node ID
   this.appName = 'Hue Ninja Module';
