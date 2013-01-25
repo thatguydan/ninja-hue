@@ -42,10 +42,12 @@ function findStations() {
   // If we do not want to auto register
   if (!this._opts.autoRegister) return;
 
-  Hue.discover(function(stations) {
+  setInterval(function() {
 
-    stations.forEach(registerStation.bind(self));
-  });
+    Hue.discover(function(stations) {
+      stations.forEach(registerStation.bind(self));
+    });
+  },20000);
 };
 
 function registerStation(station) {
