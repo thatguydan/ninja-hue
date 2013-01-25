@@ -48,7 +48,7 @@ function findStations() {
     });
   };
 
-  setInterval(discover,20000);
+  setInterval(discover,.5*60*1000);
   discover();
 };
 
