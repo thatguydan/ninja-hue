@@ -35,7 +35,6 @@ hue.prototype.config = function(config) {
 };
 
 function findStations() {
-
   this._app.log.info('Hue: No configuration')
   var self = this;
 
@@ -105,10 +104,9 @@ function fetchLights(station,stationIndex) {
   });
 
   client.lights(function(err,lights) {
-
     if (err) {
       // TODO check we are registered
-      self.app.log.error(err);
+      self._app.log.error(err);
       return;
     }
 
