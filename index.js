@@ -41,7 +41,6 @@ function findStations() {
   // If we do not want to auto register
   if (!this._opts.autoRegister) return;
 
-
   var discover = function() {
     Hue.discover(function(stations) {
       stations.forEach(registerStation.bind(self));
@@ -71,7 +70,6 @@ function registerStation(station) {
     interval:2000,
     attempts:0
   };
-
 
   self._app.log.info('Hue: Please press link button on station %s',station);
 
