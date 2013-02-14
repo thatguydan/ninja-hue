@@ -23,9 +23,9 @@ function hue(opts,app) {
   app.on('client::up', function() {
 
     if (self._opts.stations.length>0) {
-      self.loadStations.call(self);
+      self.loadStations(self);
     } else {
-      self.findStations.call(self);
+      self.findStations(self);
     }
   });
 };
@@ -94,6 +94,9 @@ hue.prototype.registerStation = function(station,cb) {
 
   var self = this;
 
+
+  console.log(this.appName)
+
   var client = Hue.createClient({
     stationIp:station,
     appName:this.appName
@@ -115,6 +118,11 @@ hue.prototype.registerStation = function(station,cb) {
       return;
     }
 
+    if (self._opts.stations.indexOf(station)>-1) {
+      // We already have this station registered.
+      return;
+    }
+
     self._app.log.info('Hue: station %s registered, saving',station);
     self._opts.stations.push(station);
 
@@ -127,7 +135,7 @@ hue.prototype.registerStation = function(station,cb) {
 
 hue.prototype.loadStations = function() {
 
-  this._opts.stations.forEach(this.fetchLights);
+  this._opts.stations.forEach(this.fetchLights.bind(this));
 };
 
 hue.prototype.fetchLights = function(station,stationIndex) {
