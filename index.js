@@ -18,7 +18,7 @@ function hue(opts,app) {
   this._opts.stations = opts.stations || [];
 
   // Todo: use node ID
-  this.appName = 'Hue Ninja Module';
+  this.appName = 'Hue Ninja Module7';
 
   app.on('client::up', function() {
 
@@ -44,7 +44,7 @@ var HUE_ANNOUNCEMENT = {
  * @param  {Function} cb      Callback with return data
  */
 hue.prototype.config = function(rpc,cb) {
-  console.log(rpc);
+
   var self = this;
 
   if (!rpc) {
@@ -93,9 +93,6 @@ hue.prototype.registerStation = function(station,cb) {
   }
 
   var self = this;
-
-
-  console.log(this.appName)
 
   var client = Hue.createClient({
     stationIp:station,
