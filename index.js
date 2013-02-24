@@ -33,7 +33,7 @@ function hue(opts,app) {
 var HUE_ANNOUNCEMENT = {
   "contents": [
     { "type": "heading",      "text": "New Philips Hue Link Detected" },
-    { "type": "paragraph",    "text": "To enable your Hue lights on the dashboard please press the link button on your Hue base station." },
+    { "type": "paragraph",    "text": "To enable your Hue lights on the dashboard please press the link button on your Hue base station." }
   ],
   "actions": []
 };
@@ -69,7 +69,7 @@ hue.prototype.findStations = function() {
 
   Hue.discover(function(stations) {
     stations.forEach(function(station) {
-
+      self._app.log.info('Hue: Station', station);
       // If we have already registered this
       if (self._opts.stations.indexOf(station)>-1) return;
 
