@@ -16,9 +16,8 @@ function hue(opts,app) {
   this._app = app;
   this._opts = opts;
   this._opts.stations = opts.stations || [];
-
   // Todo: use node ID
-  this.appName = 'Hue Ninja Module7';
+  this.appName = 'Hue Ninja Module1';
 
   app.on('client::up', function() {
 
@@ -86,10 +85,11 @@ hue.prototype.findStations = function() {
 
 hue.prototype.registerStation = function(station,cb) {
 
-  if (this._opts.stations.indexOf(station)>-1) {
+  var stationIndex = this._opts.stations.indexOf(station);
+
+  if (stationIndex>-1) {
     // We already have this station registered.
-    this._app.log.info('Hue: Already configured Hue %s, aborting',station);
-    return;
+    return this.fetchLights(station,stationIndex);
   }
 
   var self = this;
@@ -126,7 +126,7 @@ hue.prototype.registerStation = function(station,cb) {
     self.save();
 
     self.loadStations();
-    cb(null)
+    if (typeof cb==="function") cb(null);
   });
 };
 
