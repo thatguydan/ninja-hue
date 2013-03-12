@@ -51,6 +51,8 @@ hue.prototype.config = function(rpc,cb) {
   }
 
   switch (rpc.method) {
+    case 'manual_remove_hue':   return configHandlers.manual_remove_hue.call(this,rpc.params,cb); break;
+    case 'manual_show_remove':  return configHandlers.manual_show_remove.call(this,rpc.params,cb); break;
     case 'manual_get_ip':  return configHandlers.manual_get_ip.call(this,rpc.params,cb); break;
     case 'manual_set_ip':  return configHandlers.manual_set_ip.call(this,rpc.params,cb); break;
     case 'search':         return configHandlers.search.call(this,rpc.params,cb);        break;
