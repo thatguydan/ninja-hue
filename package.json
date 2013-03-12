@@ -1,0 +1,29 @@
+{
+  "name": "ninja-hue",
+  "version": "0.0.0",
+  "description": "Ninja Hue Module",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thatguydan/ninja-hue"
+  },
+  "keywords": [
+    "Ninja",
+    "Blocks",
+    "Hue",
+    "Module"
+  ],
+  "dependencies": {
+    "hue.js":"latest"
+  },
+  "author": "Daniel Friedman",
+  "license": "MIT",
+  "config":{
+    "stations":[],
+    "sentAnnouncements":[],
+    "autoRegister":true
+  }
+}
