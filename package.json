@@ -23,7 +23,6 @@
   "license": "MIT",
   "config":{
     "stations":[],
-    "sentAnnouncements":[],
     "autoRegister":true
   }
 }

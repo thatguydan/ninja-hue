@@ -75,10 +75,9 @@ hue.prototype.findStations = function() {
       if (self._opts.stations.indexOf(station)>-1) return;
 
       // If we have already announced this
-      if (self._opts.sentAnnouncements.indexOf(station) > -1) return;
+      // if (self._opts.sentAnnouncements.indexOf(station) > -1) return;
 
       self.emit('announcement',HUE_ANNOUNCEMENT);
-      self._opts.sentAnnouncements.push(station);
       self.save();
       self.registerStation(station);
     });
@@ -149,7 +148,11 @@ hue.prototype.fetchLights = function(station,stationIndex) {
   client.lights(function(err,lights) {
     if (err) {
       // TODO check we are registered
-      self._app.log.error(err);
+      if (err.type===1) {
+        self._app.log.info('Hue: Unauthorised user, aborting light registration');
+        self._opts.stations.splice(stationIndex,1);
+        self.save();
+      } else self._app.log.error(err);
       return;
     }
 
