@@ -10,7 +10,6 @@ util.inherits(hue,stream);
 module.exports = hue;
 
 function hue(opts,app) {
-
   var self = this;
 
   this._app = app;
@@ -18,14 +17,14 @@ function hue(opts,app) {
   this._opts.stations = opts.stations || [];
   // Todo: use node ID
   this.appName = 'Hue Ninja Module1';
-
   app.on('client::up', function() {
 
     if (self._opts.stations.length>0) {
-      self.loadStations(self);
+      self.loadStations.call(self);
     } else {
-      self.findStations(self);
+      self.findStations.call(self);
     }
+
   });
 };
 
@@ -33,8 +32,7 @@ var HUE_ANNOUNCEMENT = {
   "contents": [
     { "type": "heading",      "text": "New Philips Hue Link Detected" },
     { "type": "paragraph",    "text": "To enable your Hue lights on the dashboard please press the link button on your Hue base station." }
-  ],
-  "actions": []
+  ]
 };
 /**
  * Called when a user prompts a configuration
