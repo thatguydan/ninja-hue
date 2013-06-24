@@ -134,16 +134,16 @@ hue.prototype.loadStations = function() {
   this._opts.stations.forEach(this.fetchLights.bind(this));
 };
 
-hue.prototype.fetchLights = function(station,stationIndex) {
+hue.prototype.fetchLights = function(stationIp,stationIndex) {
 
   var self = this;
 
   var client = Hue.createClient({
-    stationIp:station,
+    stationIp:stationIp,
     appName:this.appName
   });
 
-  client.lights(function(err,lights) {
+  client.station(function(err,station) {
     if (err) {
       // TODO check we are registered
       if (err.type===1) {
@@ -154,9 +154,8 @@ hue.prototype.fetchLights = function(station,stationIndex) {
       return;
     }
 
-    Object.keys(lights).forEach(function(lightIndex) {
-
-      self.emit('register',new Light(client,stationIndex,lightIndex))
+    Object.keys(station.lights).forEach(function(lightIndex) {
+      self.emit('register',new Light(client, station, lightIndex));
     });
   });
 };
