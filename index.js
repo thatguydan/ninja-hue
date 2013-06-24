@@ -15,8 +15,8 @@ function hue(opts,app) {
   this._app = app;
   this._opts = opts;
   this._opts.stations = opts.stations || [];
-  // Todo: use node ID
-  this.appName = 'Hue Ninja Module1';
+
+  this.appName = 'NinjaBlocks-' + app.id;
   app.on('client::up', function() {
 
     if (self._opts.stations.length>0) {
