@@ -1,5 +1,5 @@
 {
-  "name": "ninja-hue",
+  "name": "ninja-philips-hue",
   "version": "0.0.1",
   "description": "Ninja Hue Module",
   "main": "index.js",
